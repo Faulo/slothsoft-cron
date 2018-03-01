@@ -20,7 +20,7 @@
     },
 	"autoload": {
         "psr-4": {
-            "Slothsoft\\Cron\\": "php/"
+            "Slothsoft\\Cron\\": "src/Slothsoft/Cron/"
         }
     }
 }
