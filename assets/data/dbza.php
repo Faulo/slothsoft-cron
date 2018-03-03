@@ -1,8 +1,7 @@
 <?php
-namespace Slothsoft\Farah;
 
 use Slothsoft\Core\Storage;
-use DOMDocument;
+use function Slothsoft\Lang\Vocabulary\output;
 
 $pageList = [];
 

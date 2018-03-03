@@ -1,7 +1,7 @@
 <?php
-namespace Slothsoft\Farah;
 
 use Slothsoft\Core\FileSystem;
+use Slothsoft\Farah\HTTPResponse;
 
 $ret = '';
 $ret .= sprintf('[%s] Starting updating...%s%s', date(DATE_DATETIME), PHP_EOL, PHP_EOL);

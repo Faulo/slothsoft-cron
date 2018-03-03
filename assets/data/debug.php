@@ -1,5 +1,4 @@
 <?php
-namespace Slothsoft\Farah;
 
 use Slothsoft\Core\Storage;
 

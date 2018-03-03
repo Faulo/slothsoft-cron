@@ -1,7 +1,5 @@
 <?php
-namespace Slothsoft\Farah;
 
-use Exception;
 
 $feedList = [];
 $feedList[] = 'http://blip.tv/dragon-ball-z-abridged/rss';

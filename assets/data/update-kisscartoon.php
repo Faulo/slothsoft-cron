@@ -1,8 +1,8 @@
 <?php
-namespace Slothsoft\Farah;
 
 use Slothsoft\Core\CloudFlareScraper;
 use Slothsoft\Core\Storage;
+use Slothsoft\Core\IO\HTTPFile;
 
 $requestURI = 'http://kisscartoon.me/Cartoon/Steven-Universe';
 $targetDir = 'D:\\Media\\Web Original\\Steven Universe';

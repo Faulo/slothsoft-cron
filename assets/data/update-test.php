@@ -1,5 +1,7 @@
 <?php
-namespace Slothsoft\Farah;
+
+use Slothsoft\Core\IO\HTTPFile;
+use Slothsoft\Farah\HTTPClosure;
 
 return new HTTPClosure([
     'isThreaded' => true

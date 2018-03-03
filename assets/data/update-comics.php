@@ -1,7 +1,7 @@
 <?php
-namespace Slothsoft\Farah;
 
 use Slothsoft\Core\FS\DownloadManager;
+use Slothsoft\Core\IO\HTTPFile;
 
 $config = [];
 $config['input-resource'] = 'cron/update-comics';

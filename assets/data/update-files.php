@@ -1,7 +1,8 @@
 <?php
-namespace Slothsoft\Farah;
 
 use Slothsoft\Core\FS\DownloadManager;
+use Slothsoft\Core\IO\HTTPFile;
+use Slothsoft\Farah\HTTPClosure;
 return new HTTPClosure([
     'isThreaded' => true
 ], function () {
