@@ -4,7 +4,7 @@ use Slothsoft\Core\FileSystem;
 use Slothsoft\Farah\HTTPResponse;
 
 $ret = '';
-$ret .= sprintf('[%s] Starting updating...%s%s', date(DATE_DATETIME), PHP_EOL, PHP_EOL);
+$ret .= sprintf('[%s] Starting updating...%s%s', date(DateTimeFormatter::FORMAT_DATETIME), PHP_EOL, PHP_EOL);
 
 $doc = $this->getResourceDoc('cron/update-tools', 'xml');
 $xpath = self::loadXPath($doc);
@@ -30,7 +30,7 @@ foreach ($updateNodeList as $updateNode) {
     }
     unset($val);
     
-    $ret .= sprintf('[%s] Updating "%s":%s', date(DATE_DATETIME), $name, PHP_EOL);
+    $ret .= sprintf('[%s] Updating "%s":%s', date(DateTimeFormatter::FORMAT_DATETIME), $name, PHP_EOL);
     $ret .= sprintf('	Checking website "%s"...%s', $sourceURI, PHP_EOL);
     // my_dump([$sourceURI, $sourceXPath]);
     if ($uri = FileSystem::getLinkByXPath($sourceURI, $sourceXPath)) {
@@ -46,7 +46,7 @@ foreach ($updateNodeList as $updateNode) {
     $ret .= PHP_EOL;
 }
 
-$ret .= sprintf('[%s] ...done! \\o/', date(DATE_DATETIME));
+$ret .= sprintf('[%s] ...done! \\o/', date(DateTimeFormatter::FORMAT_DATETIME));
 
 $this->progressStatus |= self::STATUS_RESPONSE_SET;
 $this->httpResponse->setStatus(HTTPResponse::STATUS_OK);

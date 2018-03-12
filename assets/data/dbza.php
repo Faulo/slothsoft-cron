@@ -10,7 +10,7 @@ $seriesURL = 'http://teamfourstar.com/series/dragonball-z-abridged/page/%d/';
 for ($i = 1, $continue = true; $continue; $i ++) {
     $continue = false;
     $url = sprintf($seriesURL, $i);
-    if ($xpath = Storage::loadExternalXPath($url, TIME_HOUR)) {
+    if ($xpath = Storage::loadExternalXPath($url, Seconds::HOUR)) {
         $nodeList = $xpath->evaluate('//*[@class="archiveitems"]//*[@href][@rel="bookmark"]');
         foreach ($nodeList as $node) {
             $url = $node->getAttribute('href');
@@ -26,11 +26,11 @@ for ($i = 1, $continue = true; $continue; $i ++) {
 
 $descList = [];
 foreach ($pageList as $url) {
-    if ($xpath = Storage::loadExternalXPath($url, TIME_MONTH)) {
+    if ($xpath = Storage::loadExternalXPath($url, Seconds::MONTH)) {
         $descList[$url] = $xpath->evaluate('string(//*[@class="postcontent"]/*[1])');
     } else {
         // echo $url . PHP_EOL;
-        $html = Storage::loadExternalFile($url, TIME_MONTH);
+        $html = Storage::loadExternalFile($url, Seconds::MONTH);
         $doc = new DOMDocument();
         @$doc->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_PARSEHUGE | LIBXML_HTML_NODEFDTD);
         // echo PHP_EOL . PHP_EOL;

@@ -3,7 +3,7 @@
 use Slothsoft\Core\FS\DownloadManager;
 use Slothsoft\Core\IO\HTTPFile;
 
-set_time_limit(TIME_DAY);
+set_time_limit(Seconds::DAY);
 
 $useStream = true;
 

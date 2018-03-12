@@ -13,7 +13,7 @@ return new HTTPClosure([
     $config['threads-active'] = false;
     $config['threads-count'] = 16;
     
-    set_time_limit(TIME_DAY);
+    set_time_limit(Seconds::DAY);
     
     $doc = $this->getResourceDoc($config['input-resource'], 'xml');
     $xpath = self::loadXPath($doc);

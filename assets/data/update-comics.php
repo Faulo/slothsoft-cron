@@ -12,7 +12,7 @@ $config['threads-count'] = 8;
 // my_dump(\CMS\HTTPFile::createFromURL('http://www.nuklearpower.com/comics/8-bit-theater/010302.jpg'));
 // die();
 
-set_time_limit(TIME_DAY);
+set_time_limit(Seconds::DAY);
 
 $doc = $this->getResourceDoc($config['input-resource'], 'xml');
 $xpath = self::loadXPath($doc);
