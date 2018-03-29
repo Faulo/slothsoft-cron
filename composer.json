@@ -23,7 +23,7 @@
     },
     "autoload": {
         "files": [
-            "src\/registerModule.php"
+            "C:\\Webserver\\workspace\\slothsoft-cron\\src\\registerModule.php"
         ],
         "psr-0": {
             "Slothsoft\\Cron\\": "src\/"
