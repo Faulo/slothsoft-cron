@@ -1,6 +1,6 @@
 <?php
 
-use Slothsoft\DBMS\Manager;
+use Slothsoft\Core\DBMS\Manager;
 
 $client = Manager::getClient();
 
