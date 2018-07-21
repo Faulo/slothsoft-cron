@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xsd:schema targetNamespace="http://schema.slothsoft.net/cron/instructions"
+	xmlns="http://schema.slothsoft.net/cron/instructions" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ssv="http://schema.slothsoft.net/schema/versioning"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:appinfo>
+			<ssv:info version="1.0">
+				<ssv:name>Cronjob Instructions</ssv:name>
+				<ssv:version>0.1</ssv:version>
+				<ssv:revision>R20180721</ssv:revision>
+				<ssv:prefix>sci</ssv:prefix>
+				<ssv:namespace>http://schema.slothsoft.net/cron/instructions</ssv:namespace>
+				<ssv:author email="daniel.lio.schulz@gmail.com">Daniel Schulz</ssv:author>
+				<ssv:description><![CDATA[
+This namespace defines elements to describe instructions that a cron job may use to keep a server's local files up to date.
+				]]></ssv:description>
+				<ssv:changelog><![CDATA[
+*** Version 0.1 ***
+	R20180721
+		- initial release
+				]]></ssv:changelog>
+			</ssv:info>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+	<xsd:attributeGroup name="schemaVersion">
+		<xsd:attribute name="version" type="xsd:token" use="required" fixed="0.1">
+			<xsd:annotation>
+				<xsd:documentation>The schema version used by the instance document.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+
+	<xsd:element name="instructions">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:restriction base="xsd:anyType">
+					<xsd:choice minOccurs="0" maxOccurs="unbounded">
+						<xsd:element ref="data" />
+						<xsd:element ref="update" />
+					</xsd:choice>
+					<xsd:attributeGroup ref="schemaVersion" />
+				</xsd:restriction>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="data">
+	</xsd:element>
+
+	<xsd:element name="update">
+	</xsd:element>
+</xsd:schema>

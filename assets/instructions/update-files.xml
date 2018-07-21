@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<instructions xmlns="http://schema.slothsoft.net/cron/instructions" version="0.1">
 <data data-length-min="100" copy-cmd="copy %s %s /y" success-cmd="" success-php="">
 	<data type="php" active="1">
 		<update name="Magic: the Gathering - Expansions" dest-path="C:\NetzwerkDaten\Downloads\cron\MtG.expansions.csv"
@@ -154,3 +155,4 @@ if ($dirList) {
 
 	</data>
 </data>
+</instructions>
