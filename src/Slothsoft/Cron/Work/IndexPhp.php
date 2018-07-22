@@ -8,7 +8,9 @@ class IndexPhp extends AbstractCronWork
 
     protected function work() : void
     {
-        $this->log(sprintf('Prepared to execute %s!', $this->getName()));
-        $this->thenDo(FetchPhp::class, $this->getOptions());
+        $options = $this->getOptions();
+        
+        $this->log(sprintf('Prepared to execute %s!', $options['name']));
+        $this->thenDo(FetchPhp::class, $options);
     }
 }

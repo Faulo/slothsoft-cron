@@ -9,7 +9,9 @@ class IndexManga extends AbstractCronWork
 
     protected function work()  : void
     {
-        $ret = [];
+        $options = $this->getOptions();
+        $fetchCount = 0;
+        
         $targetRoot = $options['dest-root'];
         $name = $options['name'];
         $sourceHost = $options['source-host'];
@@ -44,7 +46,8 @@ class IndexManga extends AbstractCronWork
             // $this->log($options);
             if ($res = $this->downloadString($options['source-uri'], $options['source-xpath-image'])) {
                 $notFound = 0;
-                $ret[] = $options;
+                $this->thenDo(FetchManga::class, $options);
+                $fetchCount++;
             } else {
                 $notFound ++;
                 if ($notFound > (int) $options['data-missing-count']) {
@@ -52,8 +55,7 @@ class IndexManga extends AbstractCronWork
                 }
             }
         }
-        $this->log(sprintf('Prepared to download %d chapter(s) of %s! (%s)', count($ret), $options['name'], $options['source-uri']));
-        return $ret;
+        $this->log(sprintf('Prepared to download %d chapter(s) of %s! (%s)', $fetchCount, $options['name'], $options['source-uri']));
     }
 
     

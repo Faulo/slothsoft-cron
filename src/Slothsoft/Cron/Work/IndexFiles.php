@@ -9,7 +9,9 @@ class IndexFiles extends AbstractCronWork
 
     protected function work() : void
     {
-        $ret = [];
+        $options = $this->getOptions();
+        $fetchList = [];
+        
         $targetRoot = $options['dest-root'];
         $sourceURI = $options['source-uri'];
         
@@ -32,15 +34,17 @@ class IndexFiles extends AbstractCronWork
                         if (! isset($fileList[$file])) {
                             $options['dest-path'] = $targetPath . $file;
                             $options['source-uri'] = $uri;
-                            $ret[] = $options;
+                            $fetchList[] = $options;
                             // break;
                         }
                     }
                 }
-                $this->log(sprintf('Prepared to download %d files of %s!', count($ret), $options['name']));
+                $this->log(sprintf('Prepared to download %d files of %s!', count($fetchList), $options['name']));
             }
         }
-        return $ret;
+        foreach ($fetchList as $fetch) {
+            $this->thenDo(FetchFile::class, $fetch);
+        }
     }
 
     

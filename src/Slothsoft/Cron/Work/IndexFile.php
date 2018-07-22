@@ -8,9 +8,9 @@ class IndexFile extends AbstractCronWork
 
     protected function work() : void
     {
-        $ret = [];
-        $ret[] = $options;
+        $options = $this->getOptions();
+        
         $this->log(sprintf('Prepared to download %s!', $options['name']));
-        return $ret;
+        $this->thenDo(FetchFile::class, $options);
     }
 }

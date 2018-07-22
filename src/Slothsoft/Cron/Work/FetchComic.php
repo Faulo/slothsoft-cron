@@ -10,7 +10,7 @@ class FetchComic extends AbstractCronWork
 {
     protected function work(): void
     {
-        $ret = [];
+        $options = $this->getOptions();
         
         $downloadCount = 0;
         foreach ($options['comicList'] as &$comic) {
@@ -41,6 +41,5 @@ class FetchComic extends AbstractCronWork
         $doc->appendChild($parentNode);
         $doc->save($destFile);
         $this->log(sprintf('Created index file %s containing %d pages for %s!', $destFile, count($options['comicList']), $options['name']));
-        return $ret;
     }
 }

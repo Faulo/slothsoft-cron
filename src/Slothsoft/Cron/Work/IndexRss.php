@@ -8,7 +8,9 @@ class IndexRss extends AbstractCronWork
 
     protected function work()  :void
     {
-        $ret = [];
+        $options = $this->getOptions();
+        $fetchCount = 0;
+        
         $targetRoot = $options['dest-root'];
         $name = $options['name'];
         $sourceHost = $options['source-host'];
@@ -56,14 +58,14 @@ class IndexRss extends AbstractCronWork
                         if ($time > 0) {
                             $options['dest-time'] = $time;
                         }
-                        $ret[] = $options;
+                        $this->thenDo(FetchFile::class, $options);
+                        $fetchCount++;
                     }
                 }
             }
         }
         
-        $this->log(sprintf('Prepared to download %d podcasts of %s!', count($ret), $options['name']));
-        return $ret;
+        $this->log(sprintf('Prepared to download %d podcasts of %s!', $fetchCount, $options['name']));
     }
 
     

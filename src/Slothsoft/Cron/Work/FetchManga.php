@@ -8,7 +8,8 @@ class FetchManga extends AbstractCronWork
 
     protected function work() : void
     {
-        $ret = [];
+        $options = $this->getOptions();
+        
         $lastImg = null;
         $lastData = null;
         $firstURI = null;
@@ -60,7 +61,6 @@ class FetchManga extends AbstractCronWork
                         $target = $targetDir . $targetFile;
                         
                         if (file_exists($target)) {
-                            // $ret[] = $target;
                             $continue = true;
                         } else {
                             @$data = file_get_contents($img);
@@ -70,11 +70,8 @@ class FetchManga extends AbstractCronWork
                                 if (strlen($data) > $options['data-length-min']) {
                                     // $this->log(sprintf('downloading %s ...', $img));
                                     file_put_contents($target, $data);
-                                    // $ret[] = $target;
                                     $continue = true;
                                     $pageCount ++;
-                                } else {
-                                    // $ret .= sprintf(' ERROR downloading %s! °A°%s', $img, PHP_EOL);
                                 }
                             }
                         }
@@ -97,7 +94,6 @@ class FetchManga extends AbstractCronWork
         } else {
             $this->log(sprintf('Already here: %s! (%s)', $chapterName, $firstURI));
         }
-        return $ret;
     }
 
     

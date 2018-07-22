@@ -8,7 +8,9 @@ class IndexHentai extends AbstractCronWork
 
     protected function work() : void
     {
-        $ret = [];
+        $options = $this->getOptions();
+        $fetchList = [];
+        
         $targetRoot = $options['dest-root'];
         $name = $options['name'];
         $sourceHost = $options['source-host'];
@@ -42,45 +44,20 @@ class IndexHentai extends AbstractCronWork
                         
                         $opt = $options;
                         $opt['source-uri'] = $uri;
-                        $ret[$uri] = $opt;
+                        $fetchList[$uri] = $opt;
                     }
-                    /*
-                     * $id = preg_match('/\d+/', $uri, $match)
-                     * ? (int) $match[0]
-                     * : null;
-                     * $title = $node->textContent;
-                     * $title = FileSystem::filenameSanitize($title);
-                     * if ($uri and $title) {
-                     * $options['chapter'] = $title;
-                     * $options['dest-path'] = $title . DIRECTORY_SEPARATOR;
-                     * $options['source-uri'] = $uri;
-                     * if (isset($options['source-xpath-download'])) {
-                     * //hentai.ms
-                     * if (!is_dir($options['dest-root'] . $options['dest-path'])) {
-                     * $ret[$uri] = $options;
-                     * }
-                     * } else {
-                     * //nhentai.net
-                     * if ($id) {
-                     * $options['chapter'] = $id;
-                     * $options['page'] = 1;
-                     * $options['type'] = 'manga';
-                     * $options['source-path'] = '/g/%d/%d/';
-                     *
-                     * $ret[$uri] = $options;
-                     * }
-                     * }
-                     * }
-                     * //
-                     */
                 }
             } else {
                 $notFound ++;
             }
             $options['source-uri'] = $nextURI;
-        } while ($nextURI and $notFound < (int) $options['data-missing-count'] and count($ret) < $options['chapter-count']);
-        $this->log(sprintf('Prepared to download %d manga of %s! (%s)', count($ret), $options['name'], $options['source-uri']));
-        return $ret;
+        } while ($nextURI and $notFound < (int) $options['data-missing-count'] and count($fetchList) < $options['chapter-count']);
+        
+        $this->log(sprintf('Prepared to download %d manga of %s! (%s)', count($fetchList), $options['name'], $options['source-uri']));
+        
+        foreach ($fetchList as $fetch) {
+            $this->thenDo(FetchHentai::class, $fetch);
+        }
     }
 
     

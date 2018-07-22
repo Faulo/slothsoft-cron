@@ -10,7 +10,8 @@ class FetchHentai extends AbstractCronWork
 
     protected function work() : void
     {
-        $ret = [];
+        $options = $this->getOptions();
+        
         if (isset($options['source-xpath-download'])) {
             if ($uri = $this->downloadURI($options['source-uri'], $options['source-xpath-download'])) {
                 if ($file = HTTPFile::createFromURL($uri)) {
@@ -67,7 +68,6 @@ class FetchHentai extends AbstractCronWork
                 }
             }
         }
-        return $ret;
     }
 
     

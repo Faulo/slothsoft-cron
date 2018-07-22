@@ -8,7 +8,8 @@ class IndexTool extends AbstractCronWork
 
     protected function work(): void
     {
-        $ret = [];
+        $options = $this->getOptions();
+        
         $sourceURI = $options['source-uri'];
         if (isset($options['source-xpath'])) {
             $sourceXPathList = [
@@ -32,7 +33,7 @@ class IndexTool extends AbstractCronWork
                         $sourceURI = $uri;
                     } else {
                         $options['source-uri'] = $uri;
-                        $ret[] = $options;
+                        $this->thenDo(FetchFile::class, $options);
                     }
                 } else {
                     $this->log(sprintf('Could not find URL at %s (%s) ???', $sourceURI, $sourceXPath), true);
@@ -43,8 +44,6 @@ class IndexTool extends AbstractCronWork
                 break;
             }
         }
-        // $this->log(sprintf('Prepared to download %d files for %s!', count($ret), $options['name']));
-        return $ret;
     }
 
     

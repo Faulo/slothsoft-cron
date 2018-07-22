@@ -10,7 +10,8 @@ class FetchFile extends AbstractCronWork
 
     protected function work() : void
     {
-        $ret = [];
+        $options = $this->getOptions();
+        
         if ($tempFile = HTTPFile::createFromURL($options['source-uri'])) {
             $tempPath = $tempFile->getPath();
             $destPath = $options['dest-path'];
@@ -55,7 +56,6 @@ class FetchFile extends AbstractCronWork
         } else {
             $this->log(sprintf('Download failed??? (%s)', $options['source-uri']), true);
         }
-        return $ret;
     }
 
     

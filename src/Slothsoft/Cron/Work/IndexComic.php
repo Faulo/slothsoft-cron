@@ -10,7 +10,9 @@ class IndexComic extends AbstractCronWork
 
     protected function work() : void
     {
-        $ret = [];
+        $options = $this->getOptions();
+        $fetchList = [];
+        
         $targetRoot = $options['dest-root'];
         $targetURI = $options['dest-uri'];
         $sourceURI = $options['source-uri'];
@@ -75,9 +77,12 @@ class IndexComic extends AbstractCronWork
             $this->log(sprintf('Prepared to verify %d comic strips of %s!', count($comicList), $options['name']));
             
             $options['comicList'] = array_values($comicList);
-            $ret[] = $options;
+            $fetchList[] = $options;
         }
-        return $ret;
+        
+        foreach ($fetchList as $fetch) {
+            $this->thenDo(FetchComic::class, $fetch);
+        }
     }
 
     

@@ -10,9 +10,11 @@ class FetchPhp extends AbstractCronWork
 
     protected function work() : void
     {
-        if ($tempFile = HTTPFile::createFromPHP($this->getOption('source-uri'))) {
+        $options = $this->getOptions();
+        
+        if ($tempFile = HTTPFile::createFromPHP($options['source-uri'])) {
             $tempPath = $tempFile->getPath();
-            $destPath = $this->getOption('dest-path');
+            $destPath = $options['dest-path'];
             
             $copy = true;
             if (file_exists($destPath)) {
@@ -22,23 +24,23 @@ class FetchPhp extends AbstractCronWork
                 }
             }
             if ($copy) {
-                if ($tempFile->copyTo(dirname($destPath), basename($destPath), $this->getOption('copy-cmd'))) {
-                    // $copyExec = sprintf($this->getOption('copy-cmd'), escapeshellarg($tempPath), escapeshellarg($destPath));
+                if ($tempFile->copyTo(dirname($destPath), basename($destPath), $options['copy-cmd'])) {
+                    // $copyExec = sprintf($options['copy-cmd'], escapeshellarg($tempPath), escapeshellarg($destPath));
                     // $res = exec($copyExec);
                     // if (file_exists($destPath)) {
-                    if ($this->getOption('dest-time')) {
-                        touch($destPath, $this->getOption('dest-time'));
+                    if (isset($options['dest-time'])) {
+                        touch($destPath, $options['dest-time']);
                     }
                     $this->log(sprintf('Updated file "%s"!', $destPath), true);
-                    if ($this->getOption('success-cmd')) {
-                        $successExec = sprintf($this->getOption('success-cmd'), escapeshellarg($destPath));
+                    if ($options['success-cmd']) {
+                        $successExec = sprintf($options['success-cmd'], escapeshellarg($destPath));
                         // $res = exec($successExec);
                         pclose(popen($successExec, 'r')); // async maybe
                     }
-                    // $this->log($this->getOption('success-php'));
-                    if ($this->getOption('success-php')) {
+                    // $this->log($options['success-php']);
+                    if ($options['success-php']) {
                         try {
-                            $res = $this->_eval($this->getOption('success-php'));
+                            $res = $this->_eval($options['success-php']);
                         } catch (Exception $e) {
                             $this->log($e->getMessage(), true);
                         }

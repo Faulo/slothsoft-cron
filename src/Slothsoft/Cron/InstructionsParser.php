@@ -38,7 +38,9 @@ class InstructionsParser implements DOMReaderInterface
                     $options['blacklist'] = $blacklist;
                 }
             } while ($updateNode = $updateNode->parentNode and $updateNode->nodeType === XML_ELEMENT_NODE);
-            yield $options;
+            if ($options['active'] === '1') {
+                yield $options;
+            }
         }
     }
 }
