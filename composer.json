@@ -1,7 +1,7 @@
 {
     "name": "slothsoft/cron",
     "description": "A Farah module that handles cronjobs.",
-    "license": "GPL",
+    "license": "WTFPL",
     "authors": [
         {
             "name": "Daniel Schulz",
