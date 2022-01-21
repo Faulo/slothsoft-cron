@@ -7,23 +7,21 @@ use Slothsoft\Core\IO\Readable\DOMReaderInterface;
 use DOMDocument;
 use DOMElement;
 
-class InstructionsParser implements DOMReaderInterface
-{
+class InstructionsParser implements DOMReaderInterface {
+
     private $sourceNode;
-    
-    public function fromDocument(DOMDocument $sourceDoc): void
-    {
+
+    public function fromDocument(DOMDocument $sourceDoc): void {
         $this->fromElement($sourceDoc->documentElement);
     }
 
-    public function fromElement(DOMElement $sourceElement): void
-    {
+    public function fromElement(DOMElement $sourceElement): void {
         $this->sourceNode = $sourceElement;
     }
-        
-    public function getUpdateInstructions() : iterable {
+
+    public function getUpdateInstructions(): iterable {
         $xpath = DOMHelper::loadXPath($this->sourceNode->ownerDocument, DOMHelper::XPATH_SLOTHSOFT);
-        
+
         foreach ($xpath->evaluate('descendant-or-self::sci:update', $this->sourceNode) as $updateNode) {
             $options = [];
             do {

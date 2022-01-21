@@ -2,14 +2,11 @@
 declare(strict_types = 1);
 namespace Slothsoft\Cron\Work;
 
+class FetchManga extends AbstractCronWork {
 
-class FetchManga extends AbstractCronWork
-{
-
-    protected function work() : void
-    {
+    protected function work(): void {
         $options = $this->getOptions();
-        
+
         $lastImg = null;
         $lastData = null;
         $firstURI = null;
@@ -40,7 +37,7 @@ class FetchManga extends AbstractCronWork
                 if ($img = $this->downloadURI($options['source-uri'], $options['source-xpath-image'])) {
                     if ($img === $lastImg) {} else {
                         $lastImg = $img;
-                        
+
                         $ext = $img;
                         if (strlen($ext)) {
                             $ext = explode('.', $ext);
@@ -55,16 +52,16 @@ class FetchManga extends AbstractCronWork
                             }
                         }
                         $lastExt = $ext;
-                        
+
                         $targetFile = sprintf($options['dest-file'], $options['page'], $ext);
-                        
+
                         $target = $targetDir . $targetFile;
-                        
+
                         if (file_exists($target)) {
                             $continue = true;
                         } else {
                             @$data = file_get_contents($img);
-                            
+
                             if ($data === $lastData) {} else {
                                 $lastData = $data;
                                 if (strlen($data) > $options['data-length-min']) {
@@ -95,6 +92,4 @@ class FetchManga extends AbstractCronWork
             $this->log(sprintf('Already here: %s! (%s)', $chapterName, $firstURI));
         }
     }
-
-    
 }

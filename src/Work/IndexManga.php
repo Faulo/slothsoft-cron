@@ -4,24 +4,22 @@ namespace Slothsoft\Cron\Work;
 
 use Slothsoft\Core\FileSystem;
 
-class IndexManga extends AbstractCronWork
-{
+class IndexManga extends AbstractCronWork {
 
-    protected function work()  : void
-    {
+    protected function work(): void {
         $options = $this->getOptions();
         $fetchCount = 0;
-        
+
         $targetRoot = $options['dest-root'];
         $name = $options['name'];
-        
+
         $targetPath = $targetRoot . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR;
-        
+
         if (! is_dir($targetPath)) {
             mkdir($targetPath);
         }
         $options['dest-root'] = $targetPath;
-        
+
         $startChapter = 0;
         $chapterList = FileSystem::scanDir($targetPath, FileSystem::SCANDIR_EXCLUDE_FILES);
         foreach ($chapterList as $chapter) {
@@ -46,7 +44,7 @@ class IndexManga extends AbstractCronWork
             if ($this->downloadString($options['source-uri'], $options['source-xpath-image'])) {
                 $notFound = 0;
                 $this->thenDo(FetchManga::class, $options);
-                $fetchCount++;
+                $fetchCount ++;
             } else {
                 $notFound ++;
                 if ($notFound > (int) $options['data-missing-count']) {
@@ -56,6 +54,4 @@ class IndexManga extends AbstractCronWork
         }
         $this->log(sprintf('Prepared to download %d chapter(s) of %s! (%s)', $fetchCount, $options['name'], $options['source-uri']));
     }
-
-    
 }

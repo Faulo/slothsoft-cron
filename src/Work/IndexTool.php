@@ -2,14 +2,11 @@
 declare(strict_types = 1);
 namespace Slothsoft\Cron\Work;
 
+class IndexTool extends AbstractCronWork {
 
-class IndexTool extends AbstractCronWork
-{
-
-    protected function work(): void
-    {
+    protected function work(): void {
         $options = $this->getOptions();
-        
+
         $sourceURI = $options['source-uri'];
         if (isset($options['source-xpath'])) {
             $sourceXPathList = [
@@ -45,6 +42,4 @@ class IndexTool extends AbstractCronWork
             }
         }
     }
-
-    
 }

@@ -5,17 +5,15 @@ namespace Slothsoft\Cron\Work;
 use Slothsoft\Core\IO\HTTPFile;
 use Exception;
 
-class FetchPhp extends AbstractCronWork
-{
+class FetchPhp extends AbstractCronWork {
 
-    protected function work() : void
-    {
+    protected function work(): void {
         $options = $this->getOptions();
-        
+
         if ($tempFile = HTTPFile::createFromPHP($options['source-uri'])) {
             $tempPath = $tempFile->getPath();
             $destPath = $options['dest-path'];
-            
+
             $copy = true;
             if (file_exists($destPath)) {
                 if (md5_file($tempPath) === md5_file($destPath)) {
@@ -58,5 +56,4 @@ class FetchPhp extends AbstractCronWork
             $this->log(json_encode($res));
         }
     }
-
 }

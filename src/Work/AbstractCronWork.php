@@ -9,13 +9,13 @@ use Slothsoft\Farah\PThreads\AbstractWorkThread;
 use DOMXPath;
 use Exception;
 
-abstract class AbstractCronWork extends AbstractWorkThread
-{
-    protected function getName() : string {
+abstract class AbstractCronWork extends AbstractWorkThread {
+
+    protected function getName(): string {
         return $this->getOption('name');
     }
-    protected function downloadXPath($sourceURI) : DOMXPath
-    {
+
+    protected function downloadXPath($sourceURI): DOMXPath {
         if ($sourceURI instanceof DOMXPath) {
             return $sourceURI;
         }
@@ -30,8 +30,7 @@ abstract class AbstractCronWork extends AbstractWorkThread
         return $ret;
     }
 
-    protected function downloadNode($sourceURI, string $query, ?DOMXPath $xpath = null)
-    {
+    protected function downloadNode($sourceURI, string $query, ?DOMXPath $xpath = null) {
         $ret = null;
         if (! $xpath) {
             $xpath = $this->downloadXPath($sourceURI);
@@ -42,15 +41,13 @@ abstract class AbstractCronWork extends AbstractWorkThread
         return $ret;
     }
 
-    protected function downloadNodeList($sourceURI, string $query, ?DOMXPath $xpath = null) : iterable
-    {
+    protected function downloadNodeList($sourceURI, string $query, ?DOMXPath $xpath = null): iterable {
         foreach ($this->downloadNode($sourceURI, $query, $xpath) as $node) {
             yield $node;
         }
     }
 
-    protected function downloadString($sourceURI, string $query, ?DOMXPath $xpath = null) : string
-    {
+    protected function downloadString($sourceURI, string $query, ?DOMXPath $xpath = null): string {
         $ret = '';
         if (! $xpath) {
             $xpath = $this->downloadXPath($sourceURI);
@@ -61,8 +58,7 @@ abstract class AbstractCronWork extends AbstractWorkThread
         return $ret;
     }
 
-    protected function downloadStringList($sourceURI, string $query, ?DOMXPath $xpath = null) : iterable
-    {
+    protected function downloadStringList($sourceURI, string $query, ?DOMXPath $xpath = null): iterable {
         if (! $xpath) {
             $xpath = $this->downloadXPath($sourceURI);
         }
@@ -78,8 +74,7 @@ abstract class AbstractCronWork extends AbstractWorkThread
         }
     }
 
-    protected function downloadURI($sourceURI, string $query, ?DOMXPath $xpath = null) : string
-    {
+    protected function downloadURI($sourceURI, string $query, ?DOMXPath $xpath = null): string {
         $ret = null;
         $uri = $this->downloadString($sourceURI, $query, $xpath);
         if (strlen($uri)) {
@@ -88,8 +83,7 @@ abstract class AbstractCronWork extends AbstractWorkThread
         return $ret;
     }
 
-    protected function downloadURIList($sourceURI, string $query, ?DOMXPath $xpath = null) : iterable
-    {
+    protected function downloadURIList($sourceURI, string $query, ?DOMXPath $xpath = null): iterable {
         $uriList = $this->downloadStringList($sourceURI, $query, $xpath);
         foreach ($uriList as $uri) {
             if (strlen($uri)) {
@@ -98,13 +92,11 @@ abstract class AbstractCronWork extends AbstractWorkThread
         }
     }
 
-    protected function _fixFilename(string $name, ?string $ext = '') : string
-    {
+    protected function _fixFilename(string $name, ?string $ext = ''): string {
         return $ext === '' ? FileSystem::filenameSanitize($name) : sprintf('%s.%s', FileSystem::filenameSanitize($name), $ext);
     }
 
-    protected function _fixURI(string $uri, string $sourceURI) : string
-    {
+    protected function _fixURI(string $uri, string $sourceURI): string {
         if (substr($uri, 0, 2) === '//') {
             $uri = 'http:' . $uri;
         }
@@ -128,8 +120,7 @@ abstract class AbstractCronWork extends AbstractWorkThread
         return $ret;
     }
 
-    protected function _eval(string $code)
-    {
+    protected function _eval(string $code) {
         return eval($code);
     }
 }

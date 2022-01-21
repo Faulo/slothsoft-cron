@@ -5,13 +5,11 @@ namespace Slothsoft\Cron\Work;
 use Slothsoft\Core\FileSystem;
 use Slothsoft\Core\IO\HTTPFile;
 
-class FetchHentai extends AbstractCronWork
-{
+class FetchHentai extends AbstractCronWork {
 
-    protected function work() : void
-    {
+    protected function work(): void {
         $options = $this->getOptions();
-        
+
         if (isset($options['source-xpath-download'])) {
             if ($uri = $this->downloadURI($options['source-uri'], $options['source-xpath-download'])) {
                 if ($file = HTTPFile::createFromURL($uri)) {
@@ -31,12 +29,12 @@ class FetchHentai extends AbstractCronWork
                 $title = FileSystem::filenameSanitize($title);
                 $uri = $this->downloadString($xpath, $options['source-xpath-read']);
                 $uri = $this->_fixURI($uri, $options['source-uri']);
-                
+
                 $path = $options['dest-root'] . $title . DIRECTORY_SEPARATOR;
-                
+
                 if (strlen($title) and strlen($uri)) {
                     $firstPage = true;
-                    
+
                     $xpath = $options['downloader']->getXPath($uri);
                     foreach ($xpath->evaluate('//script') as $scriptNode) {
                         $match = null;
@@ -47,7 +45,7 @@ class FetchHentai extends AbstractCronWork
                                 foreach ($chapters as $chapter) {
                                     $image = $chapter['image'];
                                     $file = sprintf('%s%03d.%s', $path, $chapter['page'], pathinfo($chapter['image'], PATHINFO_EXTENSION));
-                                    
+
                                     if (file_exists($file)) {
                                         // nothing to do \o/
                                     } else {
@@ -70,6 +68,4 @@ class FetchHentai extends AbstractCronWork
             }
         }
     }
-
-    
 }
