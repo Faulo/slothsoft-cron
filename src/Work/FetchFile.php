@@ -40,7 +40,7 @@ class FetchFile extends AbstractCronWork
                     // $this->log($options['success-php']);
                     if ($options['success-php']) {
                         try {
-                            $res = $this->_eval($options['success-php']);
+                            $this->_eval($options['success-php']);
                         } catch (Exception $e) {
                             $this->log($e->getMessage(), true);
                         }

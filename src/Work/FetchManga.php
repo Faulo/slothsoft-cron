@@ -29,7 +29,7 @@ class FetchManga extends AbstractCronWork
                 $firstURI = $options['source-uri'];
             }
             if ($lastExt) {
-                $targetFile = sprintf($options['dest-file'], $options['page'], $ext);
+                $targetFile = sprintf($options['dest-file'], $options['page'], $lastExt);
                 $target = $targetDir . $targetFile;
                 if (file_exists($target)) {
                     $continue = true;

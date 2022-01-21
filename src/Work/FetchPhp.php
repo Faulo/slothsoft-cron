@@ -54,7 +54,7 @@ class FetchPhp extends AbstractCronWork
                 // my_dump($res);
             }
         } else {
-            $this->log(sprintf('PHP failed??? (%s)', $downloadExec), true);
+            $this->log(sprintf('PHP failed??? (%s)', $options['source-uri']), true);
             $this->log(json_encode($res));
         }
     }

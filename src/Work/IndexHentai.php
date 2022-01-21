@@ -13,8 +13,6 @@ class IndexHentai extends AbstractCronWork
         
         $targetRoot = $options['dest-root'];
         $name = $options['name'];
-        $sourceHost = $options['source-host'];
-        $sourcePath = $options['source-path'];
         
         $targetPath = $targetRoot . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR;
         

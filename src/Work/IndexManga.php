@@ -14,8 +14,6 @@ class IndexManga extends AbstractCronWork
         
         $targetRoot = $options['dest-root'];
         $name = $options['name'];
-        $sourceHost = $options['source-host'];
-        $sourcePath = $options['source-path'];
         
         $targetPath = $targetRoot . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR;
         
@@ -27,6 +25,7 @@ class IndexManga extends AbstractCronWork
         $startChapter = 0;
         $chapterList = FileSystem::scanDir($targetPath, FileSystem::SCANDIR_EXCLUDE_FILES);
         foreach ($chapterList as $chapter) {
+            $match = null;
             if (preg_match('/(\d+)/', $chapter, $match)) {
                 $no = (int) $match[1];
                 if ($no > $startChapter) {
@@ -44,7 +43,7 @@ class IndexManga extends AbstractCronWork
             $options['source-uri'] = $options['source-host'] . sprintf($options['source-path'], $options['chapter'], $options['page']);
             // $this->log($options['source-uri']);
             // $this->log($options);
-            if ($res = $this->downloadString($options['source-uri'], $options['source-xpath-image'])) {
+            if ($this->downloadString($options['source-uri'], $options['source-xpath-image'])) {
                 $notFound = 0;
                 $this->thenDo(FetchManga::class, $options);
                 $fetchCount++;

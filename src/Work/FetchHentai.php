@@ -39,6 +39,7 @@ class FetchHentai extends AbstractCronWork
                     
                     $xpath = $options['downloader']->getXPath($uri);
                     foreach ($xpath->evaluate('//script') as $scriptNode) {
+                        $match = null;
                         if (preg_match('~var chapters = ([^;]+);~', $scriptNode->textContent, $match)) {
                             $chapters = $match[1];
                             $chapters = json_decode($chapters, true);

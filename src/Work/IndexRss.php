@@ -39,6 +39,7 @@ class IndexRss extends AbstractCronWork
                 
                 if ($title and $uri) {
                     $name = $title;
+                    $match = null;
                     if (isset($options['preg-file']) and preg_match($options['preg-file'], $file, $match)) {
                         $name = sprintf('%03d', $match[1]);
                     }
