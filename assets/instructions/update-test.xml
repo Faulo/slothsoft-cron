@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<instructions xmlns="http://schema.slothsoft.net/cron/instructions" version="0.1">
-	<data data-length-min="100" copy-cmd="copy %s %s /y" success-cmd="" success-php="">
-		<data type="php" active="1">
-			<update name="Cron Test" dest-path="C:\NetzwerkDaten\test.log" source-uri="-info" />
-		</data>
-	</data>
-</instructions>
