@@ -4,5 +4,5 @@
 		<resource-directory name="instructions" type="application/x-xsd+xml" />
 	</directory>
 
-	<custom-asset name="run" executable-builder="Slothsoft\Cron\Assets\RunBuilder" />
+	<custom-asset name="run" executable-builder="Slothsoft\Cron\Assets\RunBuilder" parameter-filter="Slothsoft\Cron\Assets\RunParameters"/>
 </assets>
