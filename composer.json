@@ -1,7 +1,7 @@
 {
 	"name" : "slothsoft/cron",
 	"description" : "A Farah module that handles cronjobs.",
-	"license" : "WTFPL",
+	"license" : "MIT",
 	"authors" : [{
 			"name" : "Daniel Schulz",
 			"email" : "info.slothsoft@gmail.com"
@@ -10,8 +10,8 @@
 	"type" : "library",
 	"require" : {
 		"php" : "7.4 - 8.0",
-		"slothsoft/core" : "^1.5",
-		"slothsoft/farah" : "^1.6"
+		"slothsoft/core" : "^1.10",
+		"slothsoft/farah" : "^1.9"
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "8.5.*"
@@ -21,7 +21,7 @@
 			"Slothsoft\\Cron\\" : "src"
 		},
 		"files" : [
-			"scripts/registerModule.php"
+			"scripts/bootstrap.php"
 		]
 	},
 	"keywords" : [
@@ -31,7 +31,7 @@
 	],
 	"autoload-dev" : {
 		"psr-4" : {
-			"Slothsoft\\Cron\\" : "tests"
+			"Slothsoft\\Cron\\Tests\\" : "tests"
 		}
 	},
 	"extra" : {
