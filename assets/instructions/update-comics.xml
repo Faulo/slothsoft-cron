@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data data-length-min="100" download-cmd="curl -k -L %s -o %s -H %s" copy-cmd="copy %s %s /y" success-cmd=""
-	success-php="">
+<data data-length-min="100" download-cmd="curl -k -L %s -o %s -H %s" copy-cmd="copy %s %s /y" success-cmd="" success-php="">
 	<data type="comic" active="1" download-count="10000" page-count="10000">
 
-		<update name="Girl Genius" dest-root="mod\comics\res\girl-genius"
-			dest-uri="/getResource.php/comics/girl-genius/" source-uri="http://www.girlgeniusonline.com/comic.php?date=20021104"
-			source-xpath-uri="normalize-space(//*[@id='topnext']/@href)"
-			source-xpath-image="normalize-space(//*[@alt='Comic']/@src)"
-			source-xpath-title="normalize-space(//*[@name='date']/*[@selected])">
+		<update name="Girl Genius" dest-root="mod\comics\res\girl-genius" dest-uri="/getResource.php/comics/girl-genius/"
+			source-uri="http://www.girlgeniusonline.com/comic.php?date=20021104" source-xpath-uri="normalize-space(//*[@id='topnext']/@href)"
+			source-xpath-image="normalize-space(//*[@alt='Comic']/@src)" source-xpath-title="normalize-space(//*[@name='date']/*[@selected])">
 			<blacklist><![CDATA[
 			]]></blacklist>
 		</update>
 		<update name="Order of the Stick" dest-root="mod\comics\res\oots" dest-uri="/getResource.php/comics/oots/"
-			source-uri="http://www.giantitp.com/comics/oots0001.html"
-			source-xpath-uri="normalize-space(//*[*/@alt='Next Comic']/@href)"
+			source-uri="http://www.giantitp.com/comics/oots0001.html" source-xpath-uri="normalize-space(//*[*/@alt='Next Comic']/@href)"
 			source-xpath-image="normalize-space(//*[starts-with(@src, '/comics/images/')]/@src)" source-xpath-title="''">
 			<blacklist><![CDATA[
 			]]></blacklist>
 		</update>
-		<update name="El Goonish Shive" dest-root="mod\comics\res\el-goonish-shive"
-			dest-uri="/getResource.php/comics/el-goonish-shive/" source-uri="http://www.egscomics.com/index.php?id=1"
-			source-xpath-uri="normalize-space(//*[@rel='next']/@href)"
-			source-xpath-image="normalize-space(//*[@id='comic']/@src)"
-			source-xpath-title="normalize-space(//*[@id='comic']/@title)">
+		<update name="El Goonish Shive" dest-root="mod\comics\res\el-goonish-shive" dest-uri="/getResource.php/comics/el-goonish-shive/"
+			source-uri="http://www.egscomics.com/index.php?id=1" source-xpath-uri="normalize-space(//*[@rel='next']/@href)"
+			source-xpath-image="normalize-space(//*[@id='comic']/@src)" source-xpath-title="normalize-space(//*[@id='comic']/@title)">
 			<blacklist><![CDATA[
 			]]></blacklist>
 		</update>
 		<update name="Ménage à 3" dest-root="mod\comics\res\menage-a-3" dest-uri="/getResource.php/comics/menage-a-3/"
-			source-uri="http://www.ma3comic.com/strips-ma3/for_new_readers"
-			source-xpath-uri="normalize-space(//*[@id='cndnext']/@href)"
-			source-xpath-image="normalize-space(//*[@id='cc']//@src)"
-			source-xpath-title="normalize-space(//*[@id='navjump']/*[1])">
+			source-uri="http://www.ma3comic.com/strips-ma3/for_new_readers" source-xpath-uri="normalize-space(//*[@id='cndnext']/@href)"
+			source-xpath-image="normalize-space(//*[@id='cc']//@src)" source-xpath-title="normalize-space(//*[@id='navjump']/*[1])">
 			<blacklist><![CDATA[
 #G - Aliens or something - Guest
 #G - Too fruity - Guest
@@ -108,10 +100,8 @@
 ]]></blacklist>
 		</update>
 		<update name="8 Bit Theater" dest-root="mod\comics\res\8bit" dest-uri="/getResource.php/comics/8bit/"
-			source-uri="http://www.nuklearpower.com/2001/03/02/episode-001-were-going-where/"
-			source-xpath-uri="normalize-space(//html:a[@rel='next']/@href)"
-			source-xpath-image="normalize-space(//*[@id='comic']//@src)"
-			source-xpath-title="normalize-space(//*[@id='comic']//@title)">
+			source-uri="http://www.nuklearpower.com/2001/03/02/episode-001-were-going-where/" source-xpath-uri="normalize-space(//html:a[@rel='next']/@href)"
+			source-xpath-image="normalize-space(//*[@id='comic']//@src)" source-xpath-title="normalize-space(//*[@id='comic']//@title)">
 			<blacklist><![CDATA[
 Interlude 00: He’s a Fighter, Not a Webcomic Artist
 Interlude 01: THE FIGHTER DOES NOT LIEK THE ROBOT!
@@ -201,28 +191,26 @@ Dead Computer Day]]></blacklist>
 
 
 
-	<data type="manga" active="1" dest-root="D:/Manga" dest-path="%s Chapter %04d" dest-file="%03d.%s"
-		data-missing-count="3" chapter-count="100" page-count="1000">
+	<data type="manga" active="1" dest-root="D:/Manga" dest-path="%s Chapter %04d" dest-file="%03d.%s" data-missing-count="3" chapter-count="100"
+		page-count="1000">
 
 		<data source-host="http://reader.sensescans.com" source-xpath-image=".//div[@id='page']//img[@class='open']/@src">
 			<update name="Magi" source-path="/reader/read/magi__labyrinth_of_magic/en/26/%d/page/%d" />
 		</data>
-		<!-- <data source-host = "http://www.mangabee.com" source-xpath-image = ".//html:img[@class='manga-page']/@src" > <update 
-			name="One Piece" source-path = "/One_Piece_bee/%d/%d" /> </data> <data source-host = "http://mangafox.me" source-xpath-image 
-			= ".//html:img[@id='image']/@src" > <update name="One Piece" source-path = "/manga/one_piece/vTBD/c%d/%d.html" /> </data> -->
+		<!-- <data source-host = "http://www.mangabee.com" source-xpath-image = ".//html:img[@class='manga-page']/@src" > <update name="One Piece" source-path = "/One_Piece_bee/%d/%d" 
+			/> </data> <data source-host = "http://mangafox.me" source-xpath-image = ".//html:img[@id='image']/@src" > <update name="One Piece" source-path = "/manga/one_piece/vTBD/c%d/%d.html" 
+			/> </data> -->
 
 
 		<data source-host="http://www.mangapanda.com" source-xpath-image=".//html:img[@id='img']/@src">
 			<update name="Attack on Titan" source-path="/shingeki-no-kyojin/%d/%d" />
 			<update name="Attack on Titan - Before The Fall" source-path="/attack-on-titan-before-the-fall/%d/%d" />
 			<update name="Pandora Hearts" source-path="/pandora-hearts/%d/%d" />
-			<update name="One Piece" source-path="/one-piece/%d/%d"
-				title-list="https://en.wikipedia.org/wiki/List_of_One_Piece_chapters_%28187%E2%80%93388%29" />
+			<update name="One Piece" source-path="/one-piece/%d/%d" title-list="https://en.wikipedia.org/wiki/List_of_One_Piece_chapters_%28187%E2%80%93388%29" />
 		</data>
 
 		<data source-host="http://www.mangahere.co" source-xpath-image=".//html:img[@id='image']/@src">
-			<update name="Avatar - The Last Airbender - The Promise"
-				source-path="/manga/avatar_the_last_airbender_the_promise/c%03d/%d.html" />
+			<update name="Avatar - The Last Airbender - The Promise" source-path="/manga/avatar_the_last_airbender_the_promise/c%03d/%d.html" />
 		</data>
 	</data>
 </data>
