@@ -3,6 +3,8 @@
 	<directory name="schema">
 		<resource-directory name="instructions" type="application/x-xsd+xml" />
 	</directory>
+	
+	<resource name="example-cron" type="application/xml"/>
 
 	<custom-asset name="run" executable-builder="Slothsoft\Cron\Assets\RunBuilder" parameter-filter="Slothsoft\Cron\Assets\RunParameters"/>
 </assets>
