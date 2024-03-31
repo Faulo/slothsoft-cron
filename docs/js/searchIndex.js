@@ -11,6 +11,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Slothsoft-Cron-Assets-RunBuilder.html#method_buildExecutableStrategies"
         },                {
+            "fqsen": "\\Slothsoft\\Cron\\Assets\\RunParameters",
+            "name": "RunParameters",
+            "summary": "",
+            "url": "classes/Slothsoft-Cron-Assets-RunParameters.html"
+        },                {
+            "fqsen": "\\Slothsoft\\Cron\\Assets\\RunParameters\u003A\u003AcreateValueSanitizers\u0028\u0029",
+            "name": "createValueSanitizers",
+            "summary": "",
+            "url": "classes/Slothsoft-Cron-Assets-RunParameters.html#method_createValueSanitizers"
+        },                {
             "fqsen": "\\Slothsoft\\Cron\\InstructionsParser",
             "name": "InstructionsParser",
             "summary": "",
