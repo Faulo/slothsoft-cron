@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Slothsoft\Cron;
+namespace Slothsoft\Cron\Tests;
 
 use Slothsoft\Farah\FarahUrl\FarahUrlAuthority;
 use Slothsoft\Farah\ModuleTests\AbstractModuleTest;
