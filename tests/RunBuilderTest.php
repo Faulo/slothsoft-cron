@@ -81,7 +81,7 @@ class RunBuilderTest extends TestCase {
 
         $actual = $result->lookupStringWriter()->toString();
 
-        $this->assertStringContainsString('Starting', $actual);
+        $this->assertStringContainsString('Cron Test', $actual);
     }
 }
 
