@@ -11,7 +11,7 @@ jobs:
       matrix:
         composer: ["lowest", "stable"]
         php: ["7.2"]
-        extensions: ["json pcre pthreads xsl"]
+        extensions: ["json pcre xsl"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
