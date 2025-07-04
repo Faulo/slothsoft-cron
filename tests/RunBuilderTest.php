@@ -14,11 +14,23 @@ use Slothsoft\Farah\FarahUrl\FarahUrl;
 
 class RunBuilderTest extends TestCase {
 
-    private AssetInterface $exampleAsset;
+    /**
+     *
+     * @var AssetInterface
+     */
+    private $exampleAsset;
 
-    private FarahUrlArguments $exampleArgs;
+    /**
+     *
+     * @var FarahUrlArguments
+     */
+    private $exampleArgs;
 
-    private RunBuilder $sut;
+    /**
+     *
+     * @var RunBuilder
+     */
+    private $sut;
 
     protected function setUp(): void {
         $this->exampleAsset = $this->getMockBuilder(AssetInterface::class)->getMock();

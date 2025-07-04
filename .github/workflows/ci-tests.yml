@@ -10,8 +10,8 @@ jobs:
       fail-fast: false
       matrix:
         composer: ["lowest", "stable"]
-        php: ["7.4", "8.0"]
-        extensions: ["ctype json mbstring pcre xsl"]
+        php: ["7.2"]
+        extensions: ["json pcre pthreads xsl"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
