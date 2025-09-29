@@ -2,7 +2,7 @@
 <instructions xmlns="http://schema.slothsoft.net/cron/instructions" version="0.1">
 	<data data-length-min="100" copy-cmd="copy %s %s /y" success-cmd="" success-php="">
 		<data type="php" active="1">
-			<update name="Cron Test" dest-path="test.log" source-uri="-info" />
+			<update name="Cron Test" dest-path="phpinfo.local" source-uri="-info" />
 		</data>
 	</data>
 </instructions>
