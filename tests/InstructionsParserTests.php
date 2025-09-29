@@ -1,5 +1,6 @@
 <?php
-namespace Slothsoft\Cron\Tests;
+declare(strict_types = 1);
+namespace Slothsoft\Cron;
 
 use PHPUnit\Framework\TestCase;
 

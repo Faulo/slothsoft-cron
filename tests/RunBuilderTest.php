@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Slothsoft\Cron\Tests;
+namespace Slothsoft\Cron;
 
 use PHPUnit\Framework\TestCase;
 use Slothsoft\Farah\Module\Executable\Executable;

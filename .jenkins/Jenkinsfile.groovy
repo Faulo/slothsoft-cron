@@ -42,7 +42,7 @@ pipeline {
 			}
 			steps {
 				script {
-					runTests(["7.2", "7.4"])
+					runTests(["7.4"])
 				}
 			}
 		}
@@ -52,7 +52,7 @@ pipeline {
 			}
 			steps {
 				script {
-					runTests(["7.2", "7.4"])
+					runTests(["7.4"])
 				}
 			}
 		}
