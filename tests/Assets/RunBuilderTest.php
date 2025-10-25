@@ -1,16 +1,15 @@
 <?php
 declare(strict_types = 1);
-namespace Slothsoft\Cron;
+namespace Slothsoft\Cron\Assets;
 
 use PHPUnit\Framework\TestCase;
+use Slothsoft\Farah\FarahUrl\FarahUrl;
+use Slothsoft\Farah\FarahUrl\FarahUrlArguments;
+use Slothsoft\Farah\Module\Asset\AssetInterface;
 use Slothsoft\Farah\Module\Executable\Executable;
 use Slothsoft\Farah\Module\Executable\ExecutableStrategies;
 use Slothsoft\Farah\Module\Result\ResultInterface;
-use Slothsoft\Cron\Assets\RunBuilder;
-use Slothsoft\Farah\FarahUrl\FarahUrlArguments;
-use Slothsoft\Farah\Module\Asset\AssetInterface;
 use InvalidArgumentException;
-use Slothsoft\Farah\FarahUrl\FarahUrl;
 
 class RunBuilderTest extends TestCase {
 
