@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="farah://slothsoft@cron/example-cron" uri="assets/example-cron.xml"/>
   <uri name="http://schema.slothsoft.net/cron/instructions" uri="assets/schema/instructions/0.1.xsd"/>
   <system systemId="farah://slothsoft@cron/schema/instructions/0.1" uri="assets/schema/instructions/0.1.xsd"/>
 </catalog>
