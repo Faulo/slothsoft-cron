@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @todo auto-generated
  */
-class IndexFilesTest extends TestCase {
+final class IndexFilesTest extends TestCase {
     
     public function testClassExists(): void {
         $this->assertTrue(class_exists(IndexFiles::class), "Failed to load class 'Slothsoft\Cron\Work\IndexFiles'!");

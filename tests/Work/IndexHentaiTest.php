@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @todo auto-generated
  */
-class IndexHentaiTest extends TestCase {
+final class IndexHentaiTest extends TestCase {
     
     public function testClassExists(): void {
         $this->assertTrue(class_exists(IndexHentai::class), "Failed to load class 'Slothsoft\Cron\Work\IndexHentai'!");

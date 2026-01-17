@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @todo auto-generated
  */
-class FetchMangaTest extends TestCase {
+final class FetchMangaTest extends TestCase {
     
     public function testClassExists(): void {
         $this->assertTrue(class_exists(FetchManga::class), "Failed to load class 'Slothsoft\Cron\Work\FetchManga'!");

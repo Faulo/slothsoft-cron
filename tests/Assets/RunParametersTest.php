@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @todo auto-generated
  */
-class RunParametersTest extends TestCase {
+final class RunParametersTest extends TestCase {
     
     public function testClassExists(): void {
         $this->assertTrue(class_exists(RunParameters::class), "Failed to load class 'Slothsoft\Cron\Assets\RunParameters'!");

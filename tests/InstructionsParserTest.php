@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @todo auto-generated
  */
-class InstructionsParserTest extends TestCase {
+final class InstructionsParserTest extends TestCase {
     
     public function testClassExists(): void {
         $this->assertTrue(class_exists(InstructionsParser::class), "Failed to load class 'Slothsoft\Cron\InstructionsParser'!");

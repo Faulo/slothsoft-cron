@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @todo auto-generated
  */
-class CronWorkManagerTest extends TestCase {
+final class CronWorkManagerTest extends TestCase {
     
     public function testClassExists(): void {
         $this->assertTrue(class_exists(CronWorkManager::class), "Failed to load class 'Slothsoft\Cron\Work\CronWorkManager'!");
