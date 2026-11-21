@@ -1,19 +1,20 @@
 <?php
 declare(strict_types = 1);
+
 namespace Slothsoft\Cron\Work;
 
 use Slothsoft\Core\IO\HTTPFile;
 use Exception;
 
 class FetchFile extends AbstractCronWork {
-
+    
     protected function work(): void {
         $options = $this->getOptions();
-
+        
         if ($tempFile = HTTPFile::createFromURL($options['source-uri'])) {
             $tempPath = $tempFile->getPath();
             $destPath = $options['dest-path'];
-
+            
             $copy = true;
             if (file_exists($destPath)) {
                 if (md5_file($tempPath) === md5_file($destPath)) {
@@ -32,8 +33,10 @@ class FetchFile extends AbstractCronWork {
                     $this->log(sprintf('Updated file "%s"!', $destPath), true);
                     if ($options['success-cmd']) {
                         $successExec = sprintf($options['success-cmd'], escapeshellarg($destPath));
-                        // $res = exec($successExec);
-                        pclose(popen($successExec, 'r')); // async maybe
+                        $process = popen($successExec, 'r');
+                        if ($process !== false) {
+                            pclose($process);
+                        }
                     }
                     // $this->log($options['success-php']);
                     if ($options['success-php']) {

@@ -1,27 +1,39 @@
 <?php
 declare(strict_types = 1);
+
 namespace Slothsoft\Cron;
 
 use Slothsoft\Core\DOMHelper;
 use Slothsoft\Core\IO\Readable\DOMReaderInterface;
 use DOMDocument;
 use DOMElement;
+use InvalidArgumentException;
+use LogicException;
 
 class InstructionsParser implements DOMReaderInterface {
-
-    private $sourceNode;
-
+    
+    private DOMElement $sourceNode;
+    
     public function fromDocument(DOMDocument $sourceDoc): void {
-        $this->fromElement($sourceDoc->documentElement);
+        $root = $sourceDoc->documentElement;
+        if ($root === null) {
+            throw new InvalidArgumentException('The cron instructions document has no root element.');
+        }
+        $this->fromElement($root);
     }
-
+    
     public function fromElement(DOMElement $sourceElement): void {
         $this->sourceNode = $sourceElement;
     }
-
+    
+    /** @return iterable<int, array<string, string>> */
     public function getUpdateInstructions(): iterable {
-        $xpath = DOMHelper::loadXPath($this->sourceNode->ownerDocument, DOMHelper::XPATH_SLOTHSOFT);
-
+        $document = $this->sourceNode->ownerDocument;
+        if ($document === null) {
+            throw new LogicException('The cron instructions element has no owner document.');
+        }
+        $xpath = DOMHelper::loadXPath($document, DOMHelper::XPATH_SLOTHSOFT);
+        
         foreach ($xpath->evaluate('descendant-or-self::sci:update', $this->sourceNode) as $updateNode) {
             $options = [];
             do {
@@ -37,7 +49,7 @@ class InstructionsParser implements DOMReaderInterface {
                     $options['blacklist'] = $blacklist;
                 }
             } while ($updateNode = $updateNode->parentNode and $updateNode->nodeType === XML_ELEMENT_NODE);
-            if ($options['active'] === '1') {
+            if (($options['active'] ?? null) === '1') {
                 yield $options;
             }
         }
