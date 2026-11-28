@@ -1,85 +1,104 @@
-def runPhp(String arguments) {
-    if (isUnix()) {
-        exec "php ${arguments}"
-    } else {
-        bat """@set "PATH=C:\\cron-php-zts;%PATH%"
-@set "PHPRC=C:\\cron-php-zts"
-@set "PHP_INI_SCAN_DIR=C:\\cron-php-zts\\conf.d"
-@php ${arguments}"""
-    }
+def unstable(def body) {
+	catchError(stageResult: 'UNSTABLE', buildResult: 'UNSTABLE', catchInterruptions: false) {
+		body()
+	}
 }
 
-def runNativeChecks(String platform, String version) {
-    def composer = platform == 'linux' ? '/usr/local/bin/composer' : 'C:/cron-php-zts/composer.phar'
-    runPhp '--ri parallel'
+def report(def body) {
+    checkout scm
 
-    for (String variant in ['lowest', 'stable']) {
-        catchError(stageResult: 'UNSTABLE', buildResult: 'UNSTABLE', catchInterruptions: false) {
-            runPhp "${composer} update --no-interaction --no-progress --prefer-${variant}"
-            runPhp "vendor/bin/phpunit --log-junit .reports/${version}-${variant}.xml"
-            if (platform == 'linux' && version == '8.2' && variant == 'stable') {
-                execStatus(
-                    script: 'php vendor/bin/phpstan analyse --no-progress --configuration=phpstan.neon.dist --error-format=junit',
-                    stdout: '.reports/phpstan.xml'
-                )
-            }
-        }
-    }
+    fileOperations([folderDeleteOperation('.reports'), folderCreateOperation('.reports')])
+
+    body()
+
+    junit(testResults: '.reports/*.xml', allowEmptyResults: true)
+}
+
+def runComposerTest(def version, def variant) {
+	unstable {
+        exec "composer update --no-interaction --no-progress --prefer-${variant}"
+
+        exec "php vendor/bin/phpunit --log-junit .reports/${version}-${variant}.xml"
+	}
+}
+
+def runLinter() {
+	unstable {
+		exec "composer update --no-interaction --no-progress"
+
+        execStatus(
+            script: "php vendor/bin/phpstan analyse --no-progress --configuration=phpstan.neon.dist --error-format=junit",
+            stdout: ".reports/phpstan.xml"
+        )
+	}
 }
 
 pipeline {
-    agent none
-    options {
-        disableConcurrentBuilds()
-        disableResume()
-        disableRestartFromStage()
-        skipDefaultCheckout()
-    }
-    environment {
-        COMPOSER_ROOT_VERSION = 'dev-main'
-        COMPOSER_PROCESS_TIMEOUT = '3600'
-        COMPOSER_ALLOW_SUPERUSER = '1'
-    }
-    stages {
-        stage('PHP ZTS with ext-parallel') {
-            matrix {
-                axes {
-                    axis {
-                        name 'PLATFORM'
-                        values 'linux', 'windows'
-                    }
-                    axis {
-                        name 'PHP_SERIES'
-                        values '8.2', '8.3', '8.4', '8.5'
-                    }
-                }
-                agent {
-                    label "${PLATFORM} && docker"
-                }
-                stages {
-                    stage('Native checks') {
-                        steps {
-                            checkout scm
-                            fileOperations([folderDeleteOperation('.reports'), folderCreateOperation('.reports')])
-                            script {
-                                def platform = env.PLATFORM
-                                def version = env.PHP_SERIES
-                                def recipe = platform == 'linux'
-                                    ? '-f .ddev/web-build/prepend.Dockerfile.php-zts .ddev/web-build'
-                                    : '-f .jenkins/Dockerfile.windows-zts .jenkins'
-                                docker.build("slothsoft-cron-zts:${version}", "--build-arg CRON_PHP_VERSION=${version} ${recipe}").inside {
-                                    runNativeChecks(platform, version)
-                                }
-                            }
-                        }
-                        post {
-                            always {
-                                junit(testResults: '.reports/*.xml', allowEmptyResults: true)
-                            }
-                        }
-                    }
-                }
+	agent none
+	options {
+		disableConcurrentBuilds()
+		disableResume()
+		disableRestartFromStage()
+		skipDefaultCheckout()
+	}
+	environment {
+		COMPOSER_PROCESS_TIMEOUT = '3600'
+	}
+	stages {
+		stage('Lint') {
+			agent {
+                label 'docker'
             }
-        }
-    }
+			steps {
+                script {
+                    report {
+                        docker.image("faulo/farah:8.2").inside {
+                            runLinter();
+                        }
+                    }
+                }
+			}
+		}
+		stage('Test') {
+			steps {
+				script {
+					def platforms = [ 'linux', 'windows' ]
+					def versions = [ "8.2", "8.3", "8.4", "8.5" ]
+					def variants = [ 'lowest', 'stable' ]
+
+					def branches = [:]
+
+					for (def p in platforms) {
+						def platform = p
+						for (def v in versions) {
+							def version = v
+							for (def a in variants) {
+								def variant = a
+
+								def name = "${platform} php-${version} ${variant}"
+								def label = "${platform} && docker"
+								def workspace = "php-${version}-${variant}"
+
+								branches[name] = {
+									stage(name) {
+										node(label) {
+											ws("${WORKSPACE}/${workspace}") {
+                                                report {
+                                                    docker.image("faulo/farah:${version}").inside {
+                                                        runComposerTest(version, variant)
+                                                    }
+                                                }
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+
+					parallel branches
+				}
+			}
+		}
+	}
 }
