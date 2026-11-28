@@ -1,0 +1,8 @@
+ARG CRON_PHP_VERSION=8.2
+FROM faulo/farah:${CRON_PHP_VERSION}
+
+COPY Install-PhpZts.ps1 C:/Install-PhpZts.ps1
+RUN powershell -NoProfile -NonInteractive -File C:/Install-PhpZts.ps1
+
+ENV PHPRC=C:/cron-php-zts \
+    PHP_INI_SCAN_DIR=C:/cron-php-zts/conf.d

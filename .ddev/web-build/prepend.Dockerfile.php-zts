@@ -1,0 +1,20 @@
+ARG CRON_PHP_VERSION=8.2
+FROM php:${CRON_PHP_VERSION}-zts-trixie AS cron-php-zts-base
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git libonig-dev libxslt1-dev libzip-dev unzip \
+    && set -- \
+    && for extension in mbstring sockets xsl zip; do \
+        if ! php --ri "$extension" >/dev/null 2>&1; then set -- "$@" "$extension"; fi; \
+    done \
+    && if [ "$#" -gt 0 ]; then docker-php-ext-install -j4 "$@"; fi \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
+
+FROM cron-php-zts-base AS cron-php-zts
+
+ARG PARALLEL_VERSION=1.2.16
+RUN pecl install "https://pecl.php.net/get/parallel-${PARALLEL_VERSION}.tgz" \
+    && docker-php-ext-enable parallel \
+    && php --ri parallel

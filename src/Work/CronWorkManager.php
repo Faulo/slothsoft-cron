@@ -1,12 +1,12 @@
 <?php
 declare(strict_types = 1);
+
 namespace Slothsoft\Cron\Work;
 
-use Slothsoft\Farah\PThreads\WorkManager;
 use DomainException;
 
 class CronWorkManager extends WorkManager {
-
+    /** @return class-string<AbstractCronWork> */
     public function getIndexWork(string $type): string {
         switch ($type) {
             case 'comic':
